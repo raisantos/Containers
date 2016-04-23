@@ -33,17 +33,18 @@ void Pilha::mostra() {
 }
 
 LSE::LSE() {
-    prim = new No(); // cabeça
+    prim = new NoPilha(); // cabeça
     prim -> prox = NULL;
     ult = prim;
 }
 
 
-void LSE::insere(Pilha& p) {
-    ult->prox = new No();
+void LSE::insere(Pilha p) {
+    ult->prox = new NoPilha();
 //    if (ult == nullptr) exit(1);
     ult = ult-> prox;
     ult -> prox = NULL;
+    ult->pilha = p;
     //apontar para a pilha criada
     //----> aqui <----
 }
@@ -52,8 +53,8 @@ bool LSE::vazia() {
     return prim == ult;
 }
 
-No* LSE::pred(No* r) {
-    No* p = prim;
+NoPilha* LSE::pred(NoPilha* r) {
+    NoPilha *p = prim;
     while (p->prox != r) {
         p = p->prox;
     }
@@ -63,9 +64,9 @@ No* LSE::pred(No* r) {
 
 void LSE::mostra() {
     cout << "LISTA:\n";
-    No *p = prim->prox;
+    NoPilha *p = prim->prox;
     while (p != NULL) {
-        p->item.mostra();
+        p->pilha.mostra();
         p = p->prox;
     }
     cout << "\n";

@@ -58,7 +58,6 @@ public:
     }
 };
 
-
 class Pilha {
 private:
     No *fundo, *topo;
@@ -70,15 +69,40 @@ public:
     void mostra();
 };
 
+class NoPilha{ //no de pilhas
+public:
+	Pilha pilha;
+	NoPilha *prox;
+
+	NoPilha(){};
+
+	Pilha getPilha() {
+	        return pilha;
+	    }
+
+	    void setPilha(Pilha pilha) {
+	        this -> pilha = pilha;
+	    }
+
+	    NoPilha* getProx() {
+	        return prox;
+	    }
+
+	    void setProx(NoPilha* prox) {
+	        this -> prox = prox;
+	    }
+};
+
+
 class LSE {
 private:
-    No *prim, *ult;
-    No* pred(No*);
+    NoPilha *prim, *ult;
+    NoPilha* pred(NoPilha*);
     bool vazia();
 public:
     LSE();
-    void insere(Pilha&);
-    No* busca(Chave);
+    void insere(Pilha);
+    NoPilha* busca(Chave);
     void mostra();
 };
 
