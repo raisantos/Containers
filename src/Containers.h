@@ -18,7 +18,7 @@ private:
     Chave valor;
 
 public:
-    Item() { } // Construtor
+    Item() {}; // Construtor
     Item(int valor): valor(valor) { }
 
     int getValor() {
@@ -64,6 +64,14 @@ private:
 
 public:
     Pilha(); // construtor
+    No* getFundo(){
+    	return fundo;
+    }
+
+    No* getTopo(){
+        return topo;
+    }
+
     void empilha(Item);
     bool vazia();
     void mostra();
@@ -93,16 +101,28 @@ public:
 	    }
 };
 
-
 class LSE {
 private:
     NoPilha *prim, *ult;
     NoPilha* pred(NoPilha*);
+    int tam = 0;
     bool vazia();
 public:
+    int getTam(){
+    	return tam;
+    }
+
+    NoPilha* getPrim(){
+    	return prim;
+    }
+
+    NoPilha* getUlt(){
+    	return ult;
+    }
+
     LSE();
     void insere(Pilha);
-    NoPilha* busca(Chave);
+    No* busca(Chave);
     void mostra();
 };
 

@@ -45,6 +45,7 @@ void LSE::insere(Pilha p) {
     ult = ult-> prox;
     ult -> prox = NULL;
     ult->pilha = p;
+    tam++;
     //apontar para a pilha criada
     //----> aqui <----
 }
@@ -70,4 +71,20 @@ void LSE::mostra() {
         p = p->prox;
     }
     cout << "\n";
+}
+
+No* LSE::busca(Chave chave){
+	NoPilha *p = prim->getProx();
+	while(p != NULL){
+		No *aux = p->getPilha().getTopo()->getProx();
+		while(aux != NULL){
+			if(aux->getItem().getValor() == chave){
+				return aux;
+			}
+			else{
+				aux = aux->getProx();
+			}
+		}
+		p = p->getProx();
+	}
 }
