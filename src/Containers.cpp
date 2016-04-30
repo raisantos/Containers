@@ -19,6 +19,14 @@ void Pilha::empilha(Item item) {
     topo = aux;
 }
 
+Item Pilha::desempilha(Item &item){
+	No *aux = topo;
+	topo = topo->prox;
+	item = topo->item;
+	aux = NULL;
+	return item;
+}
+
 bool Pilha::vazia() {
     return topo == fundo;
 }
@@ -85,9 +93,10 @@ int LSE::busca(Chave chave){
 		}
 		p = p->getProx();
 	}
+	return NULL;
 }
 
-void inserePilhas(LSE &lista, Pilha p, int indice){
+void inserePilhas(LSE &lista, Pilha &p, int indice){
 	p.setIndice(indice);
 	lista.insere(p);
 }

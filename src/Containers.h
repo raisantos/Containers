@@ -81,6 +81,7 @@ public:
     	this->indice = indice;
     }
 
+    Item desempilha(Item&);
     void empilha(Item);
     bool vazia();
     void mostra();
@@ -133,8 +134,9 @@ public:
     void insere(Pilha);
     int busca(Chave);
     void mostra();
+    void insereLista(LSE);
 };
 
-void inserePilhas(LSE&, Pilha, int);
+void inserePilhas(LSE&, Pilha&, int);
 
 #endif /* CONTAINERS_H_ */

@@ -13,7 +13,6 @@ using namespace std;
 int main() {
 	Pilha container; Pilha container2; Pilha container3;
 	LSE lista1; LSE lista2;
-	int indice = 1;
 
 	Item it;
 	for (int i = 0; i < 3; ++i) {
@@ -41,7 +40,7 @@ int main() {
 	lista1.mostra();
 
 	int r;
-	r = lista1.busca(7);
+	r = lista1.busca(0);
 	cout << r << endl;
 
 	return 0;
