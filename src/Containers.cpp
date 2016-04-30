@@ -38,7 +38,6 @@ LSE::LSE() {
     ult = prim;
 }
 
-
 void LSE::insere(Pilha p) {
     ult->prox = new NoPilha();
 //    if (ult == nullptr) exit(1);
@@ -62,7 +61,6 @@ NoPilha* LSE::pred(NoPilha* r) {
     return p;
 }
 
-
 void LSE::mostra() {
     cout << "LISTA:\n";
     NoPilha *p = prim->prox;
@@ -73,13 +71,13 @@ void LSE::mostra() {
     cout << "\n";
 }
 
-No* LSE::busca(Chave chave){
+int LSE::busca(Chave chave){
 	NoPilha *p = prim->getProx();
 	while(p != NULL){
 		No *aux = p->getPilha().getTopo()->getProx();
 		while(aux != NULL){
 			if(aux->getItem().getValor() == chave){
-				return aux;
+				return p->getPilha().getIndice();
 			}
 			else{
 				aux = aux->getProx();

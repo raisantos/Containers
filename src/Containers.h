@@ -34,7 +34,7 @@ public:
     }
 };
 
-class No {
+class No { //no que guarda o item na pilha
 public:
     Item item;
     No *prox;
@@ -61,6 +61,7 @@ public:
 class Pilha {
 private:
     No *fundo, *topo;
+    int indice;
 
 public:
     Pilha(); // construtor
@@ -72,12 +73,20 @@ public:
         return topo;
     }
 
+    int getIndice(){ //retorna qual é a pilha (1, 2, 3...)
+    	return indice;
+    }
+
+    void setIndice(int indice){
+    	this->indice = indice;
+    }
+
     void empilha(Item);
     bool vazia();
     void mostra();
 };
 
-class NoPilha{ //no de pilhas
+class NoPilha{ //no que guarda pilhas
 public:
 	Pilha pilha;
 	NoPilha *prox;
@@ -122,7 +131,7 @@ public:
 
     LSE();
     void insere(Pilha);
-    No* busca(Chave);
+    int busca(Chave);
     void mostra();
 };
 
