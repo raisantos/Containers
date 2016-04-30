@@ -86,3 +86,8 @@ int LSE::busca(Chave chave){
 		p = p->getProx();
 	}
 }
+
+void inserePilhas(LSE &lista, Pilha p, int indice){
+	p.setIndice(indice);
+	lista.insere(p);
+}

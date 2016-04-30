@@ -135,4 +135,6 @@ public:
     void mostra();
 };
 
+void inserePilhas(LSE&, Pilha, int);
+
 #endif /* CONTAINERS_H_ */

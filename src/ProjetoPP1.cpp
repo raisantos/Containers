@@ -20,9 +20,7 @@ int main() {
 		it.setValor(i);
 		container.empilha(it);
 	}
-	container.setIndice(indice);
-	indice++;
-	lista1.insere(container);
+	inserePilhas(lista1, container, 1);
 	lista1.mostra();
 
 	Item it2;
@@ -30,9 +28,7 @@ int main() {
 		it2.setValor(j);
 		container2.empilha(it2);
 	}
-	container2.setIndice(indice);
-	indice++;
-	lista1.insere(container2);
+	inserePilhas(lista1, container2, 2);
 	lista1.mostra();
 
 	Item it3;
@@ -40,8 +36,8 @@ int main() {
 		it3.setValor(k);
 		container3.empilha(it3);
 	}
-	container3.setIndice(indice);
-	lista1.insere(container3);
+	inserePilhas(lista1, container3, 3);
+
 	lista1.mostra();
 
 	int r;
