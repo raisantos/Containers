@@ -5,7 +5,7 @@
  *      Author: rsouza
  */
 
-#include "conteiner.h"
+#include "Containers.h"
 
 Pilha::Pilha() {
     fundo = new No(); // nó cabeça
@@ -92,7 +92,10 @@ int LSE::busca(Chave chave){
 		No *aux = p->getPilha().getTopo()->getProx();
 		while(aux != NULL){
 			if(aux->getItem().getValor() == chave){
-				return p->getPilha().getIndice();
+				int x;
+				x = p->getPilha().getIndice();
+				int &ref = x;
+				return ref;
 			}
 			else{
 				aux = aux->getProx();
