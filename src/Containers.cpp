@@ -19,19 +19,26 @@ void Pilha::empilha(Item item) {
     topo = aux;
 }
 
-void Pilha::empilhaTemp(Pilha &p, Item &item) {
-    No *aux = new No();
-    p.topo -> setItem(item);
-    aux -> setProx(p.topo);
-    p.topo->setItem(item);
-}
+void Pilha::desempilha(Pilha &tPilha){
+	No *temp = topo->getProx();
+	topo = topo->getProx();
 
-void Pilha::desempilha(Pilha &p,Pilha &pTemp, Item &item){
-	//No *aux = p.topo;
-	Item aux = p.topo->getProx()->getItem();
-	p.topo = p.topo->getProx();
-	item = p.topo->getItem();
-	empilhaTemp(pTemp, aux);
+	cout << temp->getItem().getValor() << "\n";
+	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
+
+	No *aux = new No();
+	//tPilha.topo = temp;
+	//cout << tPilha.topo->getItem().getValor();
+	tPilha.topo-> setItem(temp->getItem());
+	aux->setProx(tPilha.topo);
+	tPilha.topo = aux;
+	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
+
+	//aux->setProx(tPilha.topo);
+	//tPilha.topo = aux;
+	//aux->setProx(tPilha.topo);
+	//tPilha.topo = aux;
+
 }
 
 bool Pilha::vazia() {

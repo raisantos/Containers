@@ -74,8 +74,7 @@ public:
     	this->indice = indice;
     }
 
-    void desempilha(Pilha&,Pilha&,Item&);
-    void empilhaTemp(Pilha&, Item&);
+    void desempilha(Pilha&);
     void empilha(Item);
     bool vazia();
     void mostra();

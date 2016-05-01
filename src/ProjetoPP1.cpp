@@ -48,6 +48,10 @@ int main(int argc, const char * argv[]) {
 	int r;
 	r = lista1.busca(7);
 	cout << r << endl;
+	
+	c3.desempilha(c1);
+
+	lista1.mostra();
 
 	return 0;
 }
