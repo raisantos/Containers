@@ -19,29 +19,41 @@ void Pilha::empilha(Item item) {
     topo = aux;
 }
 
-void Pilha::desempilha(Pilha &tPilha){
-	No *temp = topo->getProx();
+void Pilha::empilhaAux(Item item) {
+    No *aux = new No();
+    topo->setItem(item);
+    aux->setProx(topo);
+    topo = aux;
+}
 
-	No *r = topo;
-	topo = topo->getProx();
-	delete r;
+void Pilha::desempilha(Item& item) {
+    if (vazia()) {
+        cout << "pilha vazia: impossível remover item\n";
+    }
+    else {
+        No *aux = topo;
+        topo = topo->getProx();
+        item = topo->getItem();
+        delete aux;
+    }
+}
 
-	cout << temp->getItem().getValor() << "\n";
-	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
-
-	No *aux = new No();
-	//tPilha.topo = temp;
-	//cout << tPilha.topo->getItem().getValor();
-	tPilha.topo -> setItem(temp->getItem());
-	aux->setProx(tPilha.topo);
-	tPilha.topo = aux;
-	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
-
-	//aux->setProx(tPilha.topo);
-	//tPilha.topo = aux;
-	//aux->setProx(tPilha.topo);
-	//tPilha.topo = aux;
-
+void Pilha::desempilhaAux(Pilha &tPilha) {
+    if (vazia()) {
+        cout << "pilha vazia: impossível remover item\n";
+    }
+    else {
+        No *aux = topo;
+        No *tmp = new No();
+        topo = topo->getProx();
+        //item = topo->getItem();
+        //delete aux;
+        cout << aux->getItem().getValor() << "\n";
+        tPilha.topo->setItem(aux->getItem());
+        tmp->setProx(tPilha.topo);
+        tPilha.topo = tmp;
+        tPilha.mostra();
+    }
 }
 
 bool Pilha::vazia() {

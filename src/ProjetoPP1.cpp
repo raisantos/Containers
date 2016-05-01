@@ -49,7 +49,17 @@ int main(int argc, const char * argv[]) {
 	r = lista1.busca(7);
 	cout << r << endl;
 	
-	c3.desempilha(c1);
+	Item it4;
+	it4.setValor(200);
+
+	c3.empilha(it4);
+	c3.mostra();
+	c3.desempilha(it4);
+	c3.mostra();
+	c3.desempilha(it4);
+	c3.mostra();
+	c3.desempilhaAux(c1);
+	c3.mostra();
 
 	lista1.mostra();
 

@@ -75,6 +75,8 @@ public:
     }
 
     void desempilha(Pilha&);
+    void empilhaAux(Item);
+    void desempilhaAux(Pilha&);
     void empilha(Item);
     bool vazia();
     void mostra();
