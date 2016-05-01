@@ -21,7 +21,10 @@ void Pilha::empilha(Item item) {
 
 void Pilha::desempilha(Pilha &tPilha){
 	No *temp = topo->getProx();
+
+	No *r = topo;
 	topo = topo->getProx();
+	delete r;
 
 	cout << temp->getItem().getValor() << "\n";
 	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
@@ -29,7 +32,7 @@ void Pilha::desempilha(Pilha &tPilha){
 	No *aux = new No();
 	//tPilha.topo = temp;
 	//cout << tPilha.topo->getItem().getValor();
-	tPilha.topo-> setItem(temp->getItem());
+	tPilha.topo -> setItem(temp->getItem());
 	aux->setProx(tPilha.topo);
 	tPilha.topo = aux;
 	cout << tPilha.topo->getProx()->getItem().getValor() << "\n";
