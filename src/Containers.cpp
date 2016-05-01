@@ -5,7 +5,7 @@
  *      Author: rsouza
  */
 
-#include "Containers.h"
+#include "conteiner.h"
 
 Pilha::Pilha() {
     fundo = new No(); // nó cabeça
@@ -19,12 +19,19 @@ void Pilha::empilha(Item item) {
     topo = aux;
 }
 
-Item Pilha::desempilha(Item &item){
-	No *aux = topo;
-	topo = topo->prox;
-	item = topo->item;
-	aux = NULL;
-	return item;
+void Pilha::empilhaTemp(Pilha &p, Item &item) {
+    No *aux = new No();
+    p.topo -> setItem(item);
+    aux -> setProx(p.topo);
+    p.topo->setItem(item);
+}
+
+void Pilha::desempilha(Pilha &p,Pilha &pTemp, Item &item){
+	//No *aux = p.topo;
+	Item aux = p.topo->getProx()->getItem();
+	p.topo = p.topo->getProx();
+	item = p.topo->getItem();
+	empilhaTemp(pTemp, aux);
 }
 
 bool Pilha::vazia() {

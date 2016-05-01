@@ -1,10 +1,3 @@
-/*
- * Containers.h
- *
- *  Created on: 23 de abr de 2016
- *      Author: rsouza
- */
-
 #ifndef CONTAINERS_H_
 #define CONTAINERS_H_
 
@@ -81,7 +74,8 @@ public:
     	this->indice = indice;
     }
 
-    Item desempilha(Item&);
+    void desempilha(Pilha&,Pilha&,Item&);
+    void empilhaTemp(Pilha&, Item&);
     void empilha(Item);
     bool vazia();
     void mostra();
