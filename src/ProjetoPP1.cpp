@@ -46,12 +46,12 @@ int main(int argc, const char * argv[]) {
 
 	Item *res = new Item();
 	Item *par = new Item();
-	res = c1->desempilha(par);
+	res = lista1.getPrim()->getProx()->getPilha()->desempilha(par);
 
-	c1->mostra();
+	//c1->mostra();
 	cout << "valor desempilhado : " << res->getValor() << endl << endl;
 
-	c2->empilha(res);
+	lista1.getPrim()->getProx()->getProx()->getPilha()->empilha(res);
 
 	lista1.mostra();
 
