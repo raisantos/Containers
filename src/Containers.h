@@ -111,7 +111,6 @@ private:
 	No *prim, *ult;
 	int tam = 0;
 public:
-	ListaAux(){};
 
 	int getTam(){
 		return tam;
@@ -124,6 +123,9 @@ public:
 	No* getUlt(){
 		return ult;
 	}
+	ListaAux();
+	void insere(Item *);
+	void mostra();
 };
 
 class NoLista{
@@ -133,11 +135,11 @@ private:
 public:
 	NoLista(){};
 
-	ListaEntrada *getListaAux(){
+	ListaAux *getListaAux(){
 		return listaaux;
 	}
 
-	void setListaEntrada(ListaAux *listaaux){
+	void setListaAux(ListaAux *listaaux){
 		this->listaaux = listaaux;
 	}
 
@@ -165,7 +167,10 @@ public:
 	NoLista* getUlt(){
 		return ult;
 	}
-	void insere(ListaAux);
+
+	ListaEntrada();
+	void insere(ListaAux*);
+	void mostra();
 };
 
 //------------------------------------------------------------------------------------------

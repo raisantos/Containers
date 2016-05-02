@@ -57,6 +57,24 @@ int main(int argc, const char * argv[]) {
 
 	cout << "LISTA DE LISTAS" << endl << endl;
 
+	ListaAux *l1 = new ListaAux(); ListaAux *l2 = new ListaAux();
+	ListaEntrada lista2;
+
+	for (int i = 3; i < 5; ++i) {
+		Item *it3 = new Item();
+		it3->setValor(i);
+		l1->insere(it3);
+	}
+	lista2.insere(l1);
+	lista2.mostra();
+
+	for (int i = 0; i < 3; ++i) {
+		Item *it4 = new Item();
+		it4->setValor(i);
+		l2->insere(it4);
+	}
+	lista2.insere(l2);
+	lista2.mostra();
 /*	Item *it3;
 	for (int k = 5; k < 8; ++k) {
 		it3->setValor(k);

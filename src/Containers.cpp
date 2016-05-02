@@ -87,9 +87,54 @@ void LSE::insere(Pilha* p) {
     //----> aqui <----
 }
 //-------------------------------------------------------------------------------------------
-/*void ListaEntrada(ListaEntrada l){
+ListaAux::ListaAux() {
+    prim = new No(); // cabeça
+    prim -> prox = NULL;
+    ult = prim;
+}
 
-}*/
+
+void ListaAux::insere(Item* x){
+	ult->prox = new No();
+	ult = ult->prox;
+	ult->prox = NULL;
+	ult->item = x;
+	tam++;
+}
+
+void ListaAux::mostra(){
+	cout << "Lista: Inicio-> ";
+	for (No *nav = prim->getProx(); nav != NULL;
+	                                   nav = nav->getProx()) {
+	        nav->getItem()->mostra();
+	    }
+	    cout << "<- Fim\n";
+}
+
+ListaEntrada::ListaEntrada() {
+    prim = new NoLista(); // cabeça
+    prim->setProx(NULL);
+    ult = prim;
+}
+
+void ListaEntrada::insere(ListaAux *l){
+	ult->setProx(new NoLista());
+	ult = ult->getProx();
+	ult->setProx(NULL);
+	ult->setListaAux(l);
+	tam++;
+}
+
+void ListaEntrada::mostra() {
+    cout << "LISTA:\n";
+    NoLista *p = getPrim()->getProx();
+    while (p != NULL) {
+        p->getListaAux()->mostra();
+        p = p->getProx();
+    }
+    cout << "\n";
+}
+
 //-------------------------------------------------------------------------------------------
 bool LSE::vazia() {
     return prim == ult;
