@@ -29,16 +29,16 @@ public:
 
 class No { //no que guarda o item na pilha
 public:
-    Item item;
+    Item *item;
     No *prox;
 
     No() {}
 
-    Item getItem() {
+    Item *getItem() {
         return item;
     }
 
-    void setItem(Item item) {
+    void setItem(Item *item) {
         this -> item = item;
     }
 
@@ -74,26 +74,26 @@ public:
     	this->indice = indice;
     }
 
-    void desempilha(Pilha&);
-    void empilhaAux(Item);
+    Item* desempilha(Item*);
+    void empilhaAux(Item*);
     void desempilhaAux(Pilha&);
-    void empilha(Item);
+    void empilha(Item*);
     bool vazia();
     void mostra();
 };
 
 class NoPilha{ //no que guarda pilhas
 public:
-	Pilha pilha;
+	Pilha *pilha;
 	NoPilha *prox;
 
 	NoPilha(){};
 
-	Pilha getPilha() {
+	Pilha *getPilha() {
 	        return pilha;
 	    }
 
-	    void setPilha(Pilha pilha) {
+	    void setPilha(Pilha *pilha) {
 	        this -> pilha = pilha;
 	    }
 
@@ -126,12 +126,12 @@ public:
     }
 
     LSE();
-    void insere(Pilha);
+    void insere(Pilha*);
     int busca(Chave);
     void mostra();
     void insereLista(LSE);
 };
 
-void inserePilhas(LSE&, Pilha&, int);
+void inserePilhas(LSE&, Pilha*, int);
 
 #endif /* CONTAINERS_H_ */

@@ -12,21 +12,21 @@ Pilha::Pilha() {
     topo = fundo;
 }
 
-void Pilha::empilha(Item item) {
+void Pilha::empilha(Item *item) {
     No *aux = new No();
     topo -> setItem(item);
     aux -> setProx(topo);
     topo = aux;
 }
 
-void Pilha::empilhaAux(Item item) {
+void Pilha::empilhaAux(Item *item) {
     No *aux = new No();
     topo->setItem(item);
     aux->setProx(topo);
     topo = aux;
 }
 
-void Pilha::desempilha(Item& item) {
+Item* Pilha::desempilha(Item* item) {
     if (vazia()) {
         cout << "pilha vazia: impossível remover item\n";
     }
@@ -35,6 +35,7 @@ void Pilha::desempilha(Item& item) {
         topo = topo->getProx();
         item = topo->getItem();
         delete aux;
+        return item;
     }
 }
 
@@ -48,7 +49,7 @@ void Pilha::desempilhaAux(Pilha &tPilha) {
         topo = topo->getProx();
         //item = topo->getItem();
         //delete aux;
-        cout << aux->getItem().getValor() << "\n";
+        cout << aux->getItem()->getValor() << "\n";
         tPilha.topo->setItem(aux->getItem());
         tmp->setProx(tPilha.topo);
         tPilha.topo = tmp;
@@ -64,7 +65,7 @@ void Pilha::mostra() {
     cout << "Pilha: topo-> ";
     for (No *nav = topo->getProx(); nav != NULL;
                                    nav = nav->getProx()) {
-        nav->getItem().mostra();
+        nav->getItem()->mostra();
     }
     cout << "<- fundo\n";
 }
@@ -75,7 +76,7 @@ LSE::LSE() {
     ult = prim;
 }
 
-void LSE::insere(Pilha p) {
+void LSE::insere(Pilha* p) {
     ult->prox = new NoPilha();
 //    if (ult == nullptr) exit(1);
     ult = ult-> prox;
@@ -102,7 +103,7 @@ void LSE::mostra() {
     cout << "LISTA:\n";
     NoPilha *p = prim->prox;
     while (p != NULL) {
-        p->pilha.mostra();
+        p->pilha->mostra();
         p = p->prox;
     }
     cout << "\n";
@@ -111,11 +112,11 @@ void LSE::mostra() {
 int LSE::busca(Chave chave){
 	NoPilha *p = prim->getProx();
 	while(p != NULL){
-		No *aux = p->getPilha().getTopo()->getProx();
+		No *aux = p->getPilha()->getTopo()->getProx();
 		while(aux != NULL){
-			if(aux->getItem().getValor() == chave){
+			if(aux->getItem()->getValor() == chave){
 				int x;
-				x = p->getPilha().getIndice();
+				x = p->getPilha()->getIndice();
 				int &ref = x;
 				return ref;
 			}
@@ -128,7 +129,7 @@ int LSE::busca(Chave chave){
 	return NULL;
 }
 
-void inserePilhas(LSE &lista, Pilha &p, int indice){
-	p.setIndice(indice);
+void inserePilhas(LSE &lista, Pilha *p, int indice){
+	p->setIndice(indice);
 	lista.insere(p);
 }
