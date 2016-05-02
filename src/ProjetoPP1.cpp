@@ -24,8 +24,8 @@ void desempilha(Pilha &p,Pilha &pTemp, Item &item){
 }*/
 
 int main(int argc, const char * argv[]) {
-	Pilha *c1 = new Pilha(); //Pilha *c2; Pilha *c3;
-	LSE lista1; LSE lista2;
+	Pilha *c1 = new Pilha(); Pilha *c2 = new Pilha(); //Pilha *c3;
+	LSE lista1; //LSE lista2;
 
 
 	for (int i = 0; i < 3; ++i) {
@@ -36,22 +36,26 @@ int main(int argc, const char * argv[]) {
 	inserePilhas(lista1, c1, 1);
 	lista1.mostra();
 
-	Item *res = new Item();
-	Item *par = new Item();
-	res = c1->desempilha(par);
-
-	c1->mostra();
-	cout << res->getValor();
-
-	/*Item *it2;
 	for (int j = 3; j < 5; ++j) {
+		Item *it2 = new Item();
 		it2->setValor(j);
 		c2->empilha(it2);
 	}
 	inserePilhas(lista1, c2, 2);
 	lista1.mostra();
 
-	Item *it3;
+	Item *res = new Item();
+	Item *par = new Item();
+	res = c1->desempilha(par);
+
+	c1->mostra();
+	cout << "valor desempilhado : " << res->getValor() << endl << endl;
+
+	c2->empilha(res);
+
+	lista1.mostra();
+
+/*	Item *it3;
 	for (int k = 5; k < 8; ++k) {
 		it3->setValor(k);
 		c3->empilha(it3);
