@@ -83,10 +83,10 @@ public:
 };
 
 class NoPilha{ //no que guarda pilhas
-private:
+public:
 	Pilha *pilha;
 	NoPilha *prox;
-public:
+
 	NoPilha(){};
 
 	Pilha *getPilha() {
@@ -106,19 +106,39 @@ public:
 	    }
 };
 //------------------------------------------------------------------------------------------
+class ListaAux{
+private:
+	No *prim, *ult;
+	int tam = 0;
+public:
+	ListaAux(){};
+
+	int getTam(){
+		return tam;
+	}
+
+	No* getPrim(){
+		return prim;
+	}
+
+	No* getUlt(){
+		return ult;
+	}
+};
+
 class NoLista{
 private:
-	ListaEntrada *listaentrada;
+	ListaAux *listaaux;
 	NoLista *prox;
 public:
 	NoLista(){};
 
-	ListaEntrada *getListaEntrada(){
-		return listaentrada;
+	ListaEntrada *getListaAux(){
+		return listaaux;
 	}
 
-	void setListaEntrada(ListaEntrada *listaentrada){
-		this->listaentrada = listaentrada;
+	void setListaEntrada(ListaAux *listaaux){
+		this->listaaux = listaaux;
 	}
 
 	NoLista* getProx(){
@@ -131,8 +151,21 @@ public:
 };
 
 class ListaEntrada{
+private:
 	NoLista *prim, *ult;
 	int tam = 0;
+public:
+	int getTam(){
+		return tam;
+	}
+
+	NoLista* getPrim(){
+		return prim;
+	}
+	NoLista* getUlt(){
+		return ult;
+	}
+	void insere(ListaAux);
 };
 
 //------------------------------------------------------------------------------------------

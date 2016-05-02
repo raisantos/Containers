@@ -55,6 +55,8 @@ int main(int argc, const char * argv[]) {
 
 	lista1.mostra();
 
+	cout << "LISTA DE LISTAS" << endl << endl;
+
 /*	Item *it3;
 	for (int k = 5; k < 8; ++k) {
 		it3->setValor(k);
