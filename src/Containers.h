@@ -195,7 +195,7 @@ public:
 
     LSE();
     void insere(Pilha*);
-    int busca(Chave);
+    void busca(Chave);
     void mostra();
     void insereLista(LSE);
 };

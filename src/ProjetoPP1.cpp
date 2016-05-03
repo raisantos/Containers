@@ -24,7 +24,7 @@ void desempilha(Pilha &p,Pilha &pTemp, Item &item){
 }*/
 
 int main(int argc, const char * argv[]) {
-	Pilha *c1 = new Pilha(); Pilha *c2 = new Pilha(); //Pilha *c3;
+	Pilha *c1 = new Pilha(); Pilha *c2 = new Pilha(); Pilha *c3 = new Pilha();
 	LSE lista1; //LSE lista2;
 
 
@@ -33,18 +33,26 @@ int main(int argc, const char * argv[]) {
 		it->setValor(i);
 		c1->empilha(it);
 	}
-	inserePilhas(lista1, c1, 1);
-	lista1.mostra();
+	inserePilhas(lista1, c1, 0);
+	//lista1.mostra();
 
 	for (int j = 3; j < 5; ++j) {
 		Item *it2 = new Item();
 		it2->setValor(j);
 		c2->empilha(it2);
 	}
-	inserePilhas(lista1, c2, 2);
+	inserePilhas(lista1, c2, 0);
+	//lista1.mostra();
+
+	for (int k = 5; k < 8; ++k) {
+		Item *it3 = new Item();
+		it3->setValor(k);
+		c3->empilha(it3);
+	}
+	inserePilhas(lista1, c3, 0);
 	lista1.mostra();
 
-	Item *res = new Item();
+	/*Item *res = new Item();
 	Item *par = new Item();
 	res = lista1.getPrim()->getProx()->getPilha()->desempilha(par);
 
@@ -55,9 +63,9 @@ int main(int argc, const char * argv[]) {
 
 	lista1.mostra();
 
-	cout << "LISTA DE LISTAS" << endl << endl;
+	cout << "LISTA DE LISTAS" << endl << endl;*/
 
-	ListaAux *l1 = new ListaAux(); ListaAux *l2 = new ListaAux();
+	ListaAux *l1 = new ListaAux(); ListaAux *l2 = new ListaAux(); ListaAux *l3 = new ListaAux();
 	ListaEntrada lista2;
 
 	for (int i = 3; i < 5; ++i) {
@@ -66,47 +74,41 @@ int main(int argc, const char * argv[]) {
 		l1->insere(it3);
 	}
 	lista2.insere(l1);
-	lista2.mostra();
+	//lista2.mostra();
 
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 5; i < 8; ++i) {
 		Item *it4 = new Item();
 		it4->setValor(i);
-		l2->insere(it4);
+		l3->insere(it4);
+	}
+	lista2.insere(l3);
+	//lista2.mostra();
+
+	for (int i = 0; i < 3; ++i) {
+		Item *it5 = new Item();
+		it5->setValor(i);
+		l2->insere(it5);
 	}
 	lista2.insere(l2);
 	lista2.mostra();
-/*	Item *it3;
-	for (int k = 5; k < 8; ++k) {
-		it3->setValor(k);
-		c3->empilha(it3);
+
+	cout << lista1.getPrim()->getProx()->getPilha()->getTopo()->getProx()->getItem()->getValor();
+
+	NoLista *l = lista2.getPrim()->getProx();
+	while(l != NULL){
+		No *itlista = l->getListaAux()->getPrim()->getProx();
+		while(itlista != NULL){
+			int aux = itlista->getItem()->getValor();
+			lista1.busca(aux);
+			itlista = itlista->getProx();
+		}
+		l = l->getProx();
 	}
-	Item *it4;
-	it4->setValor(200);
-	c3->empilha(it4);
-	inserePilhas(lista1, c3, 3);
-	lista1.mostra();
 
-	int r;
-	r = lista1.busca(7);
-	cout << r << endl;
-
-	//Item it4;
-//	it4.setValor(200);
-
-	//c3.empilha(it4);
-	c3->mostra();
-	//c3.desempilha(it4);
-	//c3.mostra();
-	//c3.desempilha(it4);
-	//c3.mostra();
-	cout << "---------------------" << endl;
-	//c3->desempilhaAux(c1);
-	c3->mostra();
+	//cout << "Pilha 3 : " << endl;
 
 	lista1.mostra();
-*/
+
 	return 0;
 }
-
-
 

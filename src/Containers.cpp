@@ -158,24 +158,45 @@ void LSE::mostra() {
     cout << "\n";
 }
 
-int LSE::busca(Chave chave){
+void LSE::busca(Chave chave){
 	NoPilha *p = prim->getProx();
 	while(p != NULL){
 		No *aux = p->getPilha()->getTopo()->getProx();
-		while(aux != NULL){
-			if(aux->getItem()->getValor() == chave){
-				int x;
-				x = p->getPilha()->getIndice();
-				int &ref = x;
-				return ref;
+		while(aux->getItem()->getValor()!= chave){
+			p->getPilha()->setIndice(2); //indeice da pilha alvo
+			if(p->getPilha()->getTopo()->getProx()->getItem()->getValor() == chave){
+					//funcao para empilhar o item ao destino
 			}
 			else{
-				aux = aux->getProx();
+				//desempilhar os itens ate chegar no item com a chave
+				while(p->getPilha()->getTopo()->getProx()->getItem()->getValor() != chave){
+					Item *aux = new Item(); Item *ret = new Item();
+					ret = p->getPilha()->desempilha(aux);
+					NoPilha *r = prim->getProx();
+					while(r != NULL){
+						if(r->getPilha()->getIndice() == 0){
+							r->getPilha()->empilha(ret);
+							break;
+						}
+						else{
+							r = r->getProx();
+						}
+					}
+				}
 			}
+				//return aux->getItem();
+				/*int x;
+				x = p->getPilha()->getIndice();
+				int &ref = x;
+				return ref;*/
+			}
+
+			aux = aux->getProx();
 		}
+	}
 		p = p->getProx();
 	}
-	return NULL;
+	//return NULL;
 }
 
 void inserePilhas(LSE &lista, Pilha *p, int indice){
