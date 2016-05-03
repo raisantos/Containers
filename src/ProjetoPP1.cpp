@@ -95,14 +95,20 @@ int main(int argc, const char * argv[]) {
 	cout << lista1.getPrim()->getProx()->getPilha()->getTopo()->getProx()->getItem()->getValor();
 
 	NoLista *l = lista2.getPrim()->getProx();
+	//setar a primeira pilha da lista 1 como alvo;
+	NoPilha *q = lista1.getPrim()->getProx();
+	q->getPilha()->setIndice(2); //indeice 2 = pra onde devo jogar o item que achar
 	while(l != NULL){
-		No *itlista = l->getListaAux()->getPrim()->getProx();
+		No *itlista = l->getListaAux()->getPrim()->getProx(); //no que pega a primeira lista da lista2
 		while(itlista != NULL){
 			int aux = itlista->getItem()->getValor();
 			lista1.busca(aux);
-			itlista = itlista->getProx();
+			itlista = itlista->getProx(); //navega na listaaux da lista2
 		}
-		l = l->getProx();
+		l = l->getProx(); //quando itlista chegar a null, acabou os elementos da lista, entao vai para a proxima lista
+		q->getPilha()->setIndice(0); //a pilha da lista1 correspondente a listaaux da lista2 foi ordenada, fica como temporaria
+		q = q->getProx(); //como a proxima lista foi incrementada, incrementa a pilha tbm
+		q->getPilha()->setIndice(2);//lista2 andou, lista 1 andar tbm, para mudar o indice alvo e deixar antigo alvo temporario
 	}
 
 	//cout << "Pilha 3 : " << endl;
