@@ -160,37 +160,46 @@ void LSE::mostra() {
 
 void LSE::busca(Chave chave){ //entrei na busca com a chave do item ataul da listaaux atual da lista2
 	NoPilha *p = prim->getProx(); //comeca a busca desde a primeira pilha da lista1
+	p->getPilha()->mostra();
 	while(p != NULL){
-		No *aux = p->getPilha()->getTopo()->getProx(); //pega o primeiro no da pilha
-		while(aux->getItem()->getValor()!= chave && aux->getItem()->getValor()!=NULL){ //enquanto o valor do item desse no for diferente da chave e de null
+		No *aux = p->getPilha()->getTopo()->getProx();//pega o primeiro no da pilha
+		cout << aux->getItem()->getValor() << endl;
+		while(aux->getItem()->getValor()!= chave && aux != NULL){ //enquanto o valor do item desse no for diferente da chave e de null
 			//p->getPilha()->setIndice(2); //indeice da pilha alvo						//anda para o proximo no da pilha
 			aux = aux->getProx();
+			cout << aux->getItem()->getValor();
 		}
+
 		if(aux != NULL){ //se aux é igual a null, o item nao esta nesta pilha, entao tem que ir p proxima
 			// OBS: verificar se a pilha do item de chave encontrada tbm é a pilha de destino 'indice 2'
-			if(p->getPilha()->getTopo()->getProx()->getItem()->getValor() == chave){
+			/*if(p->getPilha()->getTopo()->getProx()->getItem()->getValor() == chave){
 					//OBS: como empilhar o item na pilha de destino (indice 2)
 					//empilhar o item que esta no topo da pilha atual, na pilha de destino(indice 2)
 			}
-			else{
+			else{*/
 				//desempilhar os itens ate chegar no item com a chave
-				while(p->getPilha()->getTopo()->getProx()->getItem()->getValor() != chave){
-					Item *aux = new Item(); Item *ret = new Item();
-					ret = p->getPilha()->desempilha(aux);
-					NoPilha *r = prim->getProx();
-					while(r != NULL){ //OBS: melhorar a forma de desempilhar nas pilhas temporarias
-						if(r->getPilha()->getIndice() == 0){
-							r->getPilha()->empilha(ret);
-							break;
-						}
-						else{
-							r = r->getProx();
-						}
-					}
+			p->getPilha()->setIndice(2); // indice 2 (origem)
+			while(p->getPilha()->getTopo()->getProx()->getItem()->getValor() != chave){
+				Item *aux = new Item(); Item *ret = new Item();
+				ret = p->getPilha()->desempilha(aux);
+				NoPilha *r = prim->getProx();
+				//while(r != NULL){ //OBS: melhorar a forma de desempilhar nas pilhas temporarias
+				while(r->getPilha()->getIndice() != 0){
+					r = r->getProx();
 				}
+				r->getPilha()->empilha(ret);
+				//break;
+					//else{
+						//r = r->getProx();
 			}
 
+
+
+				//}
 		}
+			//}
+
+		//}
 		else{
 			p = p->getProx();
 		}
