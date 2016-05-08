@@ -252,12 +252,32 @@ void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
 	}
 }
 
-int contaPilha (No *tempPilha){
-	int cont = 0;
-	while (tempPilha != NULL){
-		cont=cont+1;
-		tempPilha = tempPilha->getProx();
+void ajustaDestino (LSE *lista, Pilha *pTemp) {
+	Contain *ctemp = new Contain ();
+	NoPilha *listaAux = new NoPilha();
+	listaAux = lista->getPrim()->getProx();
+	ctemp = pTemp->desempilha(ctemp);
+	if (listaAux == NULL) {
+		listaAux = lista->getPrim()->getProx();
 	}
+	while (listaAux->getPilha()->getEstado() != TEMP) {
+		listaAux = listaAux->getProx();
+	}
+	listaAux->getPilha()->empilha(ctemp);
+	listaAux->getPilha()->setEstado(ORIGEM);
+}
+
+int contaPilha (Pilha *pTemp, int container){
+	int cont = 0;
+	No *pilhaTemp = pTemp->getTopo()->getProx();
+	while (pilhaTemp->getContain()->getValor() != container) {
+		pilhaTemp = pilhaTemp->getProx();
+	}
+	while (pilhaTemp != NULL) {
+		cont = cont + 1;
+		pilhaTemp = pilhaTemp->getProx();
+	}
+
 	return cont-1;
 }
 
@@ -287,7 +307,28 @@ void buscarContainer (LSE *lista, int container, int dist){
 					ajustaOrigem(lista,listaAux->getPilha(), container);
 				}
 				else {
-					ajustaOrigem(lista,listaAux->getPilha(), container);
+					// verificar se o container esta na posicao correta
+					int cont = contaPilha(listaAux->getPilha(), container);
+					cout << cont << "\n";
+
+					if (cont > dist) {
+						ajustaOrigem(lista,listaAux->getPilha(), container);
+						ajustaDestino(lista,listaAux->getPilha());
+						/*Contain *ctemp = new Contain ();
+						listaAux->getPilha()->mostra();
+						ctemp = listaAux->getPilha()->desempilha(ctemp);
+						if (listaAux == NULL) {
+							listaAux = lista->getPrim()->getProx();
+						}
+						while (listaAux->getPilha()->getEstado() != TEMP) {
+							listaAux = listaAux->getProx();
+						}
+						listaAux->getPilha()->empilha(ctemp);
+						listaAux->getPilha()->setEstado(ORIGEM);
+						listaAux = listaAux->getProx();*/
+					}
+
+					/*
 					Contain *ctemp = new Contain ();
 					listaAux->getPilha()->mostra();
 					ctemp = listaAux->getPilha()->desempilha(ctemp);
@@ -301,9 +342,6 @@ void buscarContainer (LSE *lista, int container, int dist){
 					listaAux->getPilha()->setEstado(ORIGEM);
 					listaAux = listaAux->getProx();
 
-					int cont = contaPilha(pilhaTemp);
-					cout << cont << "\n";
-
 					if (cont>dist){
 						while (cont > 0) {
 							Contain *ctemp = new Contain ();
@@ -315,11 +353,13 @@ void buscarContainer (LSE *lista, int container, int dist){
 								listaAux = listaAux->getProx();
 							}
 							listaAux->getPilha()->empilha(ctemp);
+							listaAux->getPilha()->mostra();
 							listaAux = listaAux->getProx();
 							cont--;
+
 						}
 
-					}
+					}*/
 
 				}
 				continuar = false;
