@@ -313,13 +313,15 @@ void buscarContainer (LSE *lista, int container, int dist){
 					if (cont > dist) {
 						// Ajusta a pilha para que o container requerido esteja no topo
 						ajustaOrigem(lista,listaAux->getPilha(), container);
-						// Pega o container requerido e move para uma pilha 
+						// Pega o container requerido e move para uma pilha
 						ajustaDestino(lista,listaAux->getPilha());
 						// Como o cont>dist entao o conteinar esta cont-dist posicoes acima
 						// Temos que pegar e desempilhar os containers da pilha de destino
 						// Para o container requerido possa entrar na posicao certa
 						while (cont != 0) {
-							
+
+
+
 							cont--;
 						}
 
@@ -328,10 +330,12 @@ void buscarContainer (LSE *lista, int container, int dist){
 				continuar = false;
 			}
 			else {
+				// passa para o proximo container
 				pilhaTemp = pilhaTemp->getProx();
 			}
 
 		}
+		// passa para a proxima pilha
 		listaAux = listaAux->getProx();
 	}
 }
@@ -339,22 +343,44 @@ void buscarContainer (LSE *lista, int container, int dist){
 int main(int argc, const char * argv[]) {
 
 	LSE *e1 = new LSE();
+	LSE *e2 = new LSE();
 
 	Pilha *p1 = new Pilha();
 	Pilha *p2 = new Pilha();
 	Pilha *p3 = new Pilha();
 	Pilha *p4 = new Pilha();
 
-	/*bool continuar = true;
-
+	/* Bloco para entrada
 	int entrada;
 
-	while (continuar){
-		while (continuar) {
-
+	// le a primeira lista e alimenta
+	cin >> entrada;
+	while (entrada != -1){
+		Pilha *p = new Pilha();
+		while (entrada != -1) {
+			Contain *c = new Contain();
+			c->setValor(entrada);
+			p->empilha(c);
+			cin >> entrada;
 		}
-	}*/
+		e1->insere(p);
+		cin >> entrada;
+	}
 
+	// le a segunda lista e alimenta
+	cin >> entrada;
+	while (entrada != -1){
+		Pilha *p = new Pilha();
+		while (entrada != -1) {
+			Contain *c = new Contain();
+			c->setValor(entrada);
+			p->empilha(c);
+			cin >> entrada;
+		}
+		e2->insere(p);
+		cin >> entrada;
+	}
+	*/
 
 	for (int i = 1; i <= 4; ++i) {
 		Contain *c1 = new Contain();
