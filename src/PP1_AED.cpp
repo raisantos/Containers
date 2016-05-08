@@ -14,12 +14,6 @@ using namespace std;
 
 typedef int Chave;
 
-/*template<typename T>
-void f(T s)
-{
-    cout << s << '\n';
-}*/
-
 class Contain {
 private:
     Chave valor;
@@ -252,6 +246,14 @@ void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
 	}
 }
 
+/**
+	Caso o container que estamos buscando,
+	ja esteja na pilha de destino
+	Temos que verificar sua posicao
+	Essa funcao realiza ajuste na pilha de Destino
+	Deixando o Container em questao no topo
+ */
+
 void ajustaDestino (LSE *lista, Pilha *pTemp) {
 	Contain *ctemp = new Contain ();
 	NoPilha *listaAux = new NoPilha();
@@ -266,6 +268,11 @@ void ajustaDestino (LSE *lista, Pilha *pTemp) {
 	listaAux->getPilha()->empilha(ctemp);
 	listaAux->getPilha()->setEstado(ORIGEM);
 }
+
+/**
+	Ajusta a pilha de Destino tomando como referencia
+	o valor da variavel cont
+ */
 
 void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
 
@@ -290,6 +297,11 @@ void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
 
 }
 
+/**
+	Retorna o valor da variavel cont decrementado de -1
+	Server de referencia para verificar em que posicao o conteiner deve entrar
+ */
+
 int contaPilha (Pilha *pTemp, int container){
 	int cont = 0;
 	No *pilhaTemp = pTemp->getTopo()->getProx();
@@ -304,9 +316,9 @@ int contaPilha (Pilha *pTemp, int container){
 	return cont-1;
 }
 
-/*
- * Essa Funcao é responsavel por realizar a busca pelo container
- * Apos encontrar o container requesita outras funcoes para ajustara operacao
+/**
+	Funcao é responsavel por realizar a busca pelo container
+	Apos encontrar o container requesita outras funcoes para ajustara operacao
  */
 void buscarContainer (LSE *lista, int container, int dist){
 
@@ -338,16 +350,16 @@ void buscarContainer (LSE *lista, int container, int dist){
 						ajustaOrigem(lista,listaAux->getPilha(), container);
 						// Pega o container requerido e move para uma pilha
 						ajustaDestino(lista,listaAux->getPilha());
-						// Como o cont>dist entao o conteinar esta cont-dist posicoes acima
-						// Temos que pegar e desempilhar os containers da pilha de destino
-						// Para o container requerido possa entrar na posicao certa
+						/**
+							Como o cont>dist entao o conteinar esta cont-dist posicoes acima
+							Temos que pegar e desempilhar os containers da pilha de destino
+							Para o container requerido possa entrar na posicao certa
+						 */
 						ajustaPosicao(lista,listaAux->getPilha(),cont);
 
 					}
 					else if (cont < dist) {
-						//
-					}{
-
+						// --- implementando ---
 					}
 				}
 				continuar = false;
@@ -356,12 +368,15 @@ void buscarContainer (LSE *lista, int container, int dist){
 				// passa para o proximo container
 				pilhaTemp = pilhaTemp->getProx();
 			}
-
 		}
 		// passa para a proxima pilha
 		listaAux = listaAux->getProx();
 	}
 }
+
+/**
+	Funcao principal
+ */
 
 int main(int argc, const char * argv[]) {
 
