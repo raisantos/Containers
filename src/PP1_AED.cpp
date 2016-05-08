@@ -305,7 +305,7 @@ void buscarContainer (LSE *lista, int container, int dist){
 					cout << cont << "\n";
 
 					if (cont>dist){
-						while (cont != 0) {
+						while (cont > 0) {
 							Contain *ctemp = new Contain ();
 							ctemp = listaAux->getPilha()->desempilha(ctemp);
 							if (listaAux == NULL) {
@@ -327,8 +327,9 @@ void buscarContainer (LSE *lista, int container, int dist){
 			else {
 				pilhaTemp = pilhaTemp->getProx();
 			}
+			//listaAux = listaAux->getProx();
 		}
-		listaAux = listaAux->getProx();
+
 	}
 }
 
