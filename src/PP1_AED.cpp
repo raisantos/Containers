@@ -267,6 +267,29 @@ void ajustaDestino (LSE *lista, Pilha *pTemp) {
 	listaAux->getPilha()->setEstado(ORIGEM);
 }
 
+void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
+
+	NoPilha *listaAux = new NoPilha();
+	listaAux = lista->getPrim()->getProx();
+
+	while (cont != 0) {
+		Contain *ctemp = new Contain ();
+		ctemp = pTemp->desempilha(ctemp);
+
+		if (listaAux == NULL) {
+			listaAux = lista->getPrim()->getProx();
+		}
+
+		while (listaAux->getPilha()->getEstado() != TEMP) {
+			listaAux = listaAux->getProx();
+		}
+		listaAux->getPilha()->empilha(ctemp);
+		listaAux = listaAux->getProx();
+		cont--;
+	}
+
+}
+
 int contaPilha (Pilha *pTemp, int container){
 	int cont = 0;
 	No *pilhaTemp = pTemp->getTopo()->getProx();
@@ -318,12 +341,12 @@ void buscarContainer (LSE *lista, int container, int dist){
 						// Como o cont>dist entao o conteinar esta cont-dist posicoes acima
 						// Temos que pegar e desempilhar os containers da pilha de destino
 						// Para o container requerido possa entrar na posicao certa
-						while (cont != 0) {
+						ajustaPosicao(lista,listaAux->getPilha(),cont);
 
-
-
-							cont--;
-						}
+					}
+					else if (cont < dist) {
+						//
+					}{
 
 					}
 				}
