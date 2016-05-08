@@ -309,67 +309,30 @@ void buscarContainer (LSE *lista, int container, int dist){
 				else {
 					// verificar se o container esta na posicao correta
 					int cont = contaPilha(listaAux->getPilha(), container);
-					cout << cont << "\n";
 
 					if (cont > dist) {
+						// Ajusta a pilha para que o container requerido esteja no topo
 						ajustaOrigem(lista,listaAux->getPilha(), container);
+						// Pega o container requerido e move para uma pilha 
 						ajustaDestino(lista,listaAux->getPilha());
-						/*Contain *ctemp = new Contain ();
-						listaAux->getPilha()->mostra();
-						ctemp = listaAux->getPilha()->desempilha(ctemp);
-						if (listaAux == NULL) {
-							listaAux = lista->getPrim()->getProx();
-						}
-						while (listaAux->getPilha()->getEstado() != TEMP) {
-							listaAux = listaAux->getProx();
-						}
-						listaAux->getPilha()->empilha(ctemp);
-						listaAux->getPilha()->setEstado(ORIGEM);
-						listaAux = listaAux->getProx();*/
-					}
-
-					/*
-					Contain *ctemp = new Contain ();
-					listaAux->getPilha()->mostra();
-					ctemp = listaAux->getPilha()->desempilha(ctemp);
-					if (listaAux == NULL) {
-						listaAux = lista->getPrim()->getProx();
-					}
-					while (listaAux->getPilha()->getEstado() != TEMP) {
-						listaAux = listaAux->getProx();
-					}
-					listaAux->getPilha()->empilha(ctemp);
-					listaAux->getPilha()->setEstado(ORIGEM);
-					listaAux = listaAux->getProx();
-
-					if (cont>dist){
-						while (cont > 0) {
-							Contain *ctemp = new Contain ();
-							ctemp = listaAux->getPilha()->desempilha(ctemp);
-							if (listaAux == NULL) {
-								listaAux = lista->getPrim()->getProx();
-							}
-							while (listaAux->getPilha()->getEstado() != TEMP) {
-								listaAux = listaAux->getProx();
-							}
-							listaAux->getPilha()->empilha(ctemp);
-							listaAux->getPilha()->mostra();
-							listaAux = listaAux->getProx();
+						// Como o cont>dist entao o conteinar esta cont-dist posicoes acima
+						// Temos que pegar e desempilhar os containers da pilha de destino
+						// Para o container requerido possa entrar na posicao certa
+						while (cont != 0) {
+							
 							cont--;
-
 						}
 
-					}*/
-
+					}
 				}
 				continuar = false;
 			}
 			else {
 				pilhaTemp = pilhaTemp->getProx();
 			}
-			//listaAux = listaAux->getProx();
-		}
 
+		}
+		listaAux = listaAux->getProx();
 	}
 }
 
