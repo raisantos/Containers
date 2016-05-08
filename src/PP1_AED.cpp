@@ -3,7 +3,7 @@
 // Author      : Jailson & Rai Soledade & Richardson Souza
 // Version     :
 // Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Description : Projeto PP1 de AED in C++, Ansi-style
 //============================================================================
 
 #include <iostream>
@@ -99,7 +99,7 @@ public:
 };
 
 Pilha::Pilha() {
-    fundo = new No(); // nó cabeça
+    fundo = new No();
     topo = fundo;
     estado = TEMP;
 }
@@ -129,7 +129,6 @@ Contain* Pilha::desempilha(Contain *item) {
 }
 
 void Pilha::mostra() {
-    //cout << " ";
     for (No *nav = topo->getProx(); nav != NULL; nav = nav->getProx()) {
         nav->getContain()->mostra();
         cout << " ";
@@ -138,11 +137,11 @@ void Pilha::mostra() {
     cout << "\n";
 }
 
-class NoPilha{ //no que guarda pilhas
+class NoPilha{
 public:
 	Pilha *pilha;
 	NoPilha *prox;
-//public:
+
 	NoPilha(){};
 
 	Pilha *getPilha() {
@@ -183,7 +182,6 @@ public:
     void insere(Pilha*);
     void busca(Chave);
     void mostra();
-    //void inserePilhas(Pilha*);
 };
 
 LSE::LSE() {
@@ -194,12 +192,9 @@ LSE::LSE() {
 
 void LSE::insere(Pilha* p) {
     ult->setProx(new NoPilha());
-//    if (ult == nullptr) exit(1);
     ult=ult->getProx();
     ult->setProx(NULL);
     ult->setPilha(p);
-    //apontar para a pilha criada
-    //----> aqui <----
 }
 
 void LSE::mostra() {
@@ -209,7 +204,6 @@ void LSE::mostra() {
         p->pilha->mostra();
         p = p->getProx();
     }
-    //cout << "\n";
 }
 
 void LSE::busca(Chave chave){
@@ -229,13 +223,11 @@ void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
 
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
-	// Enquanto o TOPO for diferente do valor do container é feito o desempilhamento
-	while (pTemp->getTopo()->getProx()->getContain()->getValor() != container) {
+	while (pTemp->getTopo()->getProx()->getContain()->getValor() != container) {	// Enquanto o TOPO for diferente do valor do container é feito o desempilhamento
 		Contain *ctemp = new Contain ();
 		ctemp = pTemp->desempilha(ctemp);
-		// Essa condicao verificar se já chegamos no fim da lista
-		// se sim o ponteiro e reiniciado
-		if (listaAux == NULL) {
+
+		if (listaAux == NULL) {										// Essa condicao verificar se já chegamos no fim da lista
 			listaAux = lista->getPrim()->getProx();
 		}
 		while (listaAux->getPilha()->getEstado() != TEMP) {
@@ -332,30 +324,20 @@ void buscarContainer (LSE *lista, int container, int dist){
 		pilhaTemp = listaAux->getPilha()->getTopo()->getProx();
 
 		while (continuar && pilhaTemp != NULL) {
-			// Faz a busca pelo container
 			if (pilhaTemp->getContain()->getValor() == container){
-				// Verifica se o container encontrado esta numa pilha TEMP (0) (Temporaria)
-				if (listaAux->getPilha()->getEstado() == TEMP) {
-					// Se estiver alteramos o estado da pilha par ORIGEM (2)
-					listaAux->getPilha()->setEstado(ORIGEM);
-					// funcao ajusta a pilha ate que o topo seja igual ao container
-					ajustaOrigem(lista,listaAux->getPilha(), container);
+				if (listaAux->getPilha()->getEstado() == TEMP) {			// Verifica se o container encontrado esta numa pilha TEMP (0) (Temporaria)
+					listaAux->getPilha()->setEstado(ORIGEM);				// Se estiver alteramos o estado da pilha par ORIGEM (2)
+					ajustaOrigem(lista,listaAux->getPilha(), container);	// Funcao ajusta a pilha ate que o topo seja igual ao container
 				}
 				else {
-					// verificar se o container esta na posicao correta
-					int cont = contaPilha(listaAux->getPilha(), container);
+					int cont = contaPilha(listaAux->getPilha(), container);	// Incrementa a variavel cont
 
 					if (cont > dist) {
-						// Ajusta a pilha para que o container requerido esteja no topo
-						ajustaOrigem(lista,listaAux->getPilha(), container);
-						// Pega o container requerido e move para uma pilha
-						ajustaDestino(lista,listaAux->getPilha());
-						/**
-							Como o cont>dist entao o conteinar esta cont-dist posicoes acima
-							Temos que pegar e desempilhar os containers da pilha de destino
-							Para o container requerido possa entrar na posicao certa
-						 */
-						ajustaPosicao(lista,listaAux->getPilha(),cont);
+						ajustaOrigem(lista,listaAux->getPilha(), container);// Ajusta a pilha para que o container requerido esteja no topo
+
+						ajustaDestino(lista,listaAux->getPilha());			// Pega o container requerido e move para uma pilha
+
+						ajustaPosicao(lista,listaAux->getPilha(),cont);		// Ajusta a pilha de Destino tendo como referencia a variavel cont
 
 					}
 					else if (cont < dist) {
@@ -365,12 +347,10 @@ void buscarContainer (LSE *lista, int container, int dist){
 				continuar = false;
 			}
 			else {
-				// passa para o proximo container
-				pilhaTemp = pilhaTemp->getProx();
+				pilhaTemp = pilhaTemp->getProx();							// Passa para o proximo container
 			}
 		}
-		// passa para a proxima pilha
-		listaAux = listaAux->getProx();
+		listaAux = listaAux->getProx();										// passa para a proxima pilha
 	}
 }
 
