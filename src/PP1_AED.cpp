@@ -44,7 +44,7 @@ public:
 class No {
 public:
 	Contain *item;
-    No *prox, *ant;
+    No *prox;
 
     No() {}
 
@@ -62,12 +62,6 @@ public:
 
     void setProx(No *prox) {
         this->prox = prox;
-    }
-    No* getAnt() {
-    	return ant;
-    }
-    void setAnt(No *ant) {
-    	this->ant = ant;
     }
 
 };
@@ -230,7 +224,6 @@ void LSE::busca(Chave chave){
 	while (p != NULL) {
 		p->getPilha()->mostra();
 	}
-
 }
 
 /*
@@ -242,29 +235,37 @@ void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
 
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
-
+	// Enquanto o TOPO for diferente do valor do container é feito o desempilhamento
 	while (pTemp->getTopo()->getProx()->getContain()->getValor() != container) {
 		Contain *ctemp = new Contain ();
 		ctemp = pTemp->desempilha(ctemp);
-
+		// Essa condicao verificar se já chegamos no fim da lista
+		// se sim o ponteiro e reiniciado
 		if (listaAux == NULL) {
 			listaAux = lista->getPrim()->getProx();
 		}
-
 		while (listaAux->getPilha()->getEstado() != TEMP) {
 			listaAux = listaAux->getProx();
 		}
-
 		listaAux->getPilha()->empilha(ctemp);
 		listaAux = listaAux->getProx();
-
 	}
-
 }
 
+int contaPilha (No *tempPilha){
+	int cont = 0;
+	while (tempPilha != NULL){
+		cont=cont+1;
+		tempPilha = tempPilha->getProx();
+	}
+	return cont-1;
+}
 
-
-void buscarContainer (LSE *lista, int container){
+/*
+ * Essa Funcao é responsavel por realizar a busca pelo container
+ * Apos encontrar o container requesita outras funcoes para ajustara operacao
+ */
+void buscarContainer (LSE *lista, int container, int dist){
 
 	bool continuar = true;
 
@@ -278,14 +279,47 @@ void buscarContainer (LSE *lista, int container){
 		while (continuar && pilhaTemp != NULL) {
 			// Faz a busca pelo container
 			if (pilhaTemp->getContain()->getValor() == container){
-				// Verifica se o container encontrado esta numa pilha TEMP (Temporaria)
+				// Verifica se o container encontrado esta numa pilha TEMP (0) (Temporaria)
 				if (listaAux->getPilha()->getEstado() == TEMP) {
-					// Se estiver alteramos o estado da pilha par ORIGEM
+					// Se estiver alteramos o estado da pilha par ORIGEM (2)
 					listaAux->getPilha()->setEstado(ORIGEM);
 					// funcao ajusta a pilha ate que o topo seja igual ao container
 					ajustaOrigem(lista,listaAux->getPilha(), container);
 				}
 				else {
+					ajustaOrigem(lista,listaAux->getPilha(), container);
+					Contain *ctemp = new Contain ();
+					listaAux->getPilha()->mostra();
+					ctemp = listaAux->getPilha()->desempilha(ctemp);
+					if (listaAux == NULL) {
+						listaAux = lista->getPrim()->getProx();
+					}
+					while (listaAux->getPilha()->getEstado() != TEMP) {
+						listaAux = listaAux->getProx();
+					}
+					listaAux->getPilha()->empilha(ctemp);
+					listaAux->getPilha()->setEstado(ORIGEM);
+					listaAux = listaAux->getProx();
+
+					int cont = contaPilha(pilhaTemp);
+					cout << cont << "\n";
+
+					if (cont>dist){
+						while (cont != 0) {
+							Contain *ctemp = new Contain ();
+							ctemp = listaAux->getPilha()->desempilha(ctemp);
+							if (listaAux == NULL) {
+								listaAux = lista->getPrim()->getProx();
+							}
+							while (listaAux->getPilha()->getEstado() != TEMP) {
+								listaAux = listaAux->getProx();
+							}
+							listaAux->getPilha()->empilha(ctemp);
+							listaAux = listaAux->getProx();
+							cont--;
+						}
+
+					}
 
 				}
 				continuar = false;
@@ -306,6 +340,17 @@ int main(int argc, const char * argv[]) {
 	Pilha *p2 = new Pilha();
 	Pilha *p3 = new Pilha();
 	Pilha *p4 = new Pilha();
+
+	/*bool continuar = true;
+
+	int entrada;
+
+	while (continuar){
+		while (continuar) {
+
+		}
+	}*/
+
 
 	for (int i = 1; i <= 4; ++i) {
 		Contain *c1 = new Contain();
@@ -339,11 +384,12 @@ int main(int argc, const char * argv[]) {
 	cout << "Antes: \n";
 	e1->mostra();
 
-	int cont = 11;
+	int conteiner = 3;
+	int dist = 1;
 
-	cout << "container procurado: " << cont << "\n";
+	cout << "container procurado: " << conteiner << "\n";
 
-	buscarContainer(e1,cont);
+	buscarContainer(e1,conteiner,dist);
 
 	cout << "Depois: \n";
 	e1->mostra();
@@ -351,3 +397,4 @@ int main(int argc, const char * argv[]) {
 
 	return 0;
 }
+
