@@ -200,7 +200,7 @@ void LSE::insere(Pilha* p) {
 void LSE::mostra() {
     NoPilha *p = getPrim()->getProx();
     while (p != NULL) {
-    	cout << "i:" << p->getPilha()->getEstado() << " ";
+    	//cout << "i:" << p->getPilha()->getEstado() << " ";
         p->pilha->mostra();
         p = p->getProx();
     }
@@ -277,7 +277,7 @@ void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
 
-	while (cont != 0) {
+	while (cont != 0 && pTemp->vazia() != true) {
 		Contain *ctemp = new Contain ();
 		ctemp = pTemp->desempilha(ctemp);
 
@@ -349,7 +349,7 @@ void buscarContainer (LSE *lista, int container, int dist){
 					listaAux->getPilha()->setEstado(ORIGEM);				// Se estiver alteramos o estado da pilha par ORIGEM (2)
 					ajustaOrigem(lista,listaAux->getPilha(), container);	// Funcao ajusta a pilha ate que o topo seja igual ao container
 
-					lista->mostra();
+					//lista->mostra();
 
 					listaAux = lista->getPrim()->getProx();
 
@@ -401,7 +401,7 @@ void buscarContainer (LSE *lista, int container, int dist){
 					}
 
 					else if (cont == dist) {
-						ajustaPosicao(lista,listaAux->getPilha(),cont);
+						break;
 					}
 
 					listaAux = lista->getPrim()->getProx();
@@ -443,7 +443,7 @@ void buscarContainer (LSE *lista, int container, int dist){
 
 int main(int argc, const char * argv[]) {
 
-	LSE *e1 = new LSE();
+LSE *e1 = new LSE();
 	//LSE *e2 = new LSE();
 
 	int entrada;
@@ -472,7 +472,7 @@ int main(int argc, const char * argv[]) {
 		while (entrada != -1) {
 			dist++;
 			buscarContainer(e1,entrada,dist);
-			e1->mostra();
+			//e1->mostra();
 			cin >> entrada;
 		}
 		listaAux->getPilha()->setEstado(TEMP);
@@ -481,7 +481,7 @@ int main(int argc, const char * argv[]) {
 		cin >> entrada;
 	}
 
-	cout << "\n\n\n\n";
+	cout << "\n";
 
 	e1->mostra();
 
