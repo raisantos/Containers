@@ -245,6 +245,34 @@ void LSE::mostra() {
     cout << "\n";
 }
 
+void imprimeTopo(NoPilha *nave, int loop){
+	while(nave != NULL){
+		Pilha *aux = new Pilha();
+		Item *it = new Item();
+		aux = nave->getPilha();
+		//if(aux->getIndice() == TAM da maior pilha entao imprime topo, senao imprime espaco)
+		if(aux->getIndice() != loop){
+			if(aux->getTopo()->getProx()->getItem()->getValor() > 99){
+				cout << "    ";
+				nave = nave->getProx();
+			}
+			else if(aux->getTopo()->getProx()->getItem()->getValor() > 9){
+				cout << "   ";
+				nave = nave->getProx();
+			}
+			else{
+				cout << "  ";
+				nave = nave->getProx();
+			}
+		}
+					//
+		else{
+			cout << aux->getTopo()->getProx()->getItem()->getValor() << " ";
+			aux->desempilha(it);
+			nave = nave->getProx();
+		}
+	}
+}
 
 int main() {
 	Pilha *c1 = new Pilha(); Pilha *c2 = new Pilha(); Pilha *c3 = new Pilha();
@@ -258,7 +286,7 @@ int main() {
 	lista1.insere(c1);
 	//lista1.mostra();
 
-	for (int j = 100; j < 102; ++j) {
+	for (int j = 97; j < 99; ++j) {
 		Item *it2 = new Item();
 		it2->setValor(j);
 		c2->empilha(it2);
@@ -307,32 +335,7 @@ int main() {
 			//armazenar num int
 			nave = lista1.getPrim()->getProx();
 			int loop = tam;
-			while(nave != NULL){
-				Pilha *aux = new Pilha();
-				Item *it = new Item();
-				aux = nave->getPilha();
-				//if(aux->getIndice() == TAM da maior pilha entao imprime topo, senao imprime espaco)
-				if(aux->getIndice() != loop){
-					if(aux->getTopo()->getProx()->getItem()->getValor() > 99){
-						cout << "    ";
-						nave = nave->getProx();
-					}
-					else if(aux->getTopo()->getProx()->getItem()->getValor() > 9){
-						cout << "   ";
-						nave = nave->getProx();
-					}
-					else{
-						cout << "  ";
-						nave = nave->getProx();
-					}
-				}
-				//
-				else{
-					cout << aux->getTopo()->getProx()->getItem()->getValor() << " ";
-					aux->desempilha(it);
-					nave = nave->getProx();
-				}
-			}
+			imprimeTopo(nave, loop);
 			cout << endl;
 		}
 		nave = lista1.getPrim()->getProx();
