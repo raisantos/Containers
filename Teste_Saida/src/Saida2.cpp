@@ -250,7 +250,7 @@ int main() {
 	Pilha *c1 = new Pilha(); Pilha *c2 = new Pilha(); Pilha *c3 = new Pilha();
 	LSE lista1; //LSE lista2;
 
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 15; i < 19; ++i) {
 		Item *it = new Item();
 		it->setValor(i);
 		c1->empilha(it);
@@ -258,7 +258,7 @@ int main() {
 	lista1.insere(c1);
 	//lista1.mostra();
 
-	for (int j = 3; j < 5; ++j) {
+	for (int j = 100; j < 102; ++j) {
 		Item *it2 = new Item();
 		it2->setValor(j);
 		c2->empilha(it2);
@@ -266,7 +266,7 @@ int main() {
 	lista1.insere(c2);
 	//lista1.mostra();
 
-	for (int k = 5; k < 8; ++k) {
+	for (int k = 20; k < 25; ++k) {
 		Item *it3 = new Item();
 		it3->setValor(k);
 		c3->empilha(it3);
@@ -274,6 +274,8 @@ int main() {
 	lista1.insere(c3);
 	lista1.mostra();
 
+	//cout << c1->getIndice() << endl;
+	//cout << c2->getIndice() << endl;
 	cout << "-----------------------------------------------------------------------------------------" << endl;
 
 	NoPilha *nave = lista1.getPrim()->getProx();
@@ -292,15 +294,37 @@ int main() {
 		}
 		else{
 			nave = lista1.getPrim()->getProx();
+			//verificar o tamanho da maior pilha para comparacao com todas as pilhas
+			int tam = nave->getPilha()->getIndice(); //pega o tamanho da primeira pilha
 			while(nave != NULL){
-				//verificar o tamanho da maior pilha para comparacao com todas as pilhas
+				Pilha *p = new Pilha();
+				p = nave->getPilha();
+				if(p->getIndice() > tam){
+					tam = p->getIndice();
+				}
+				nave = nave->getProx();
+			}
+			//armazenar num int
+			nave = lista1.getPrim()->getProx();
+			int loop = tam;
+			while(nave != NULL){
 				Pilha *aux = new Pilha();
 				Item *it = new Item();
 				aux = nave->getPilha();
 				//if(aux->getIndice() == TAM da maior pilha entao imprime topo, senao imprime espaco)
-				if(aux->vazia()){
-					cout << "  ";
-					nave = nave->getProx();
+				if(aux->getIndice() != loop){
+					if(aux->getTopo()->getProx()->getItem()->getValor() > 99){
+						cout << "    ";
+						nave = nave->getProx();
+					}
+					else if(aux->getTopo()->getProx()->getItem()->getValor() > 9){
+						cout << "   ";
+						nave = nave->getProx();
+					}
+					else{
+						cout << "  ";
+						nave = nave->getProx();
+					}
 				}
 				//
 				else{
@@ -313,10 +337,6 @@ int main() {
 		}
 		nave = lista1.getPrim()->getProx();
 	}
-
-	cout << endl;
-	cout << "-------------------------------------------------------------------------------------------" << endl;
-	lista1.mostra();
 
 	return 0;
 }
