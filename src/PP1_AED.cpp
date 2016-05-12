@@ -654,6 +654,7 @@ LSE *e1 = new LSE(); ListaDeEntrada *e2 = new ListaDeEntrada();
 	e1->mostra();
 	cout << "------------------------------------------------" << endl;
 	e2->mostra();
+	//
 	/*NoPilha *listaAux = e1->getPrim()->getProx();
 
 	int dist = 0;
