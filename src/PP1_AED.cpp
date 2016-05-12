@@ -229,7 +229,29 @@ public:
 	}
 	Lista();
 	void insere(Contain *);
+	void mostra();
 };
+
+Lista::Lista() {
+    prim = new No(); // cabeça
+    prim -> prox = NULL;
+    ult = prim;
+}
+
+void Lista::insere(Contain* x){
+	ult->prox = new No();
+	ult = ult->prox;
+	ult->prox = NULL;
+	ult->item = x;
+}
+
+void Lista::mostra(){
+	for (No *nav = prim->getProx(); nav != NULL; nav = nav->getProx()) {
+		nav->getContain()->mostra();
+	}
+	cout << "\n";
+}
+
 
 class NoLista{
 private:
@@ -269,7 +291,29 @@ public:
 
 	ListaDeEntrada();
 	void insere(Lista*);
+	void mostra();
 };
+
+ListaDeEntrada::ListaDeEntrada() {
+    prim = new NoLista(); // cabeça
+    prim->setProx(NULL);
+    ult = prim;
+}
+
+void ListaDeEntrada::insere(Lista *l){
+	ult->setProx(new NoLista());
+	ult = ult->getProx();
+	ult->setProx(NULL);
+	ult->setLista(l);
+}
+
+void ListaDeEntrada::mostra() {
+    NoLista *p = getPrim()->getProx();
+    while (p != NULL) {
+        p->getLista()->mostra();
+        p = p->getProx();
+    }
+}
 
 //-----------------------------------------------------------------------------------------------------
 /*
@@ -576,7 +620,7 @@ void imprime (LSE *lista) {
 
 int main(int argc, const char * argv[]) {
 
-LSE *e1 = new LSE();
+LSE *e1 = new LSE(); ListaDeEntrada *e2 = new ListaDeEntrada();
 	//LSE *e2 = new LSE();
 
 	int entrada;
@@ -594,7 +638,23 @@ LSE *e1 = new LSE();
 		cin >> entrada;
 	}
 
-	NoPilha *listaAux = e1->getPrim()->getProx();
+	cin >> entrada;
+	while (entrada != -1){
+		Lista *l = new Lista();
+		while (entrada != -1) {
+			Contain *d = new Contain();
+			d->setValor(entrada);
+			l->insere(d);
+			cin >> entrada;
+		}
+		e2->insere(l);
+		cin >> entrada;
+	}
+
+	e1->mostra();
+	cout << "------------------------------------------------" << endl;
+	e2->mostra();
+	/*NoPilha *listaAux = e1->getPrim()->getProx();
 
 	int dist = 0;
 	cin >> entrada;
@@ -609,12 +669,11 @@ LSE *e1 = new LSE();
 		listaAux = listaAux->getProx();
 		dist = 0;
 		cin >> entrada;
-	}
+	}*/
 
 	//e1->mostra();
 
-	imprime(e1);
+	//imprime(e1);
 
 	return 0;
 }
-
