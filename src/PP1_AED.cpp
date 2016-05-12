@@ -11,6 +11,8 @@ using namespace std;
 #define ORIGEM 2
 #define DESTINO 1
 #define TEMP 0
+#define UNIDADE 1
+#define DEZENA 10
 
 typedef int Chave;
 
@@ -437,6 +439,81 @@ void buscarContainer (LSE *lista, int container, int dist){
 	}
 }
 
+int maiorPilha(LSE *lista){
+
+	int maior = 0, temp;
+
+	NoPilha *listaAux = new NoPilha();
+	listaAux = lista->getPrim()->getProx();
+
+	while (listaAux != NULL) {
+		Pilha *pilhaTemp = new Pilha();
+		pilhaTemp = listaAux->getPilha();
+		temp = contaDestino(pilhaTemp);
+		if (temp>maior) {
+			maior = temp;
+		}
+
+		listaAux = listaAux->getProx();
+
+	}
+
+	return maior;
+}
+
+void imprime (LSE *lista) {
+
+	bool continuar = true;
+
+	int tam = maiorPilha(lista);
+	int temp;
+	int tipo;
+
+	if (lista->getPrim()->getProx()->getPilha()->getTopo()->getProx()->getContain()->getValor() < DEZENA) {
+			tipo = UNIDADE;
+	}
+	else {
+		tipo = DEZENA;
+	}
+
+	NoPilha *listaAux = new NoPilha();
+
+	while (continuar) {
+		listaAux = lista->getPrim()->getProx();
+		while (listaAux != NULL) {
+
+			Pilha *pilhaTemp = new Pilha();
+			pilhaTemp = listaAux->getPilha();
+
+			temp = contaDestino(pilhaTemp);
+			if (temp == tam) {
+				Contain *c = new Contain ();
+				cout << pilhaTemp->getTopo()->getProx()->getContain()->getValor() << " ";
+				pilhaTemp->desempilha(c);
+			}
+			else {
+				if (tipo == UNIDADE){
+					cout << "  ";
+				}
+				else {
+					cout << "   ";
+				}
+
+			}
+
+			listaAux = listaAux->getProx();
+		}
+		cout << "\n";
+		tam = maiorPilha(lista);
+		if (tam == 0) {
+			continuar = false;
+		}
+
+	}
+
+}
+
+
 /**
 	Funcao principal
  */
@@ -461,8 +538,6 @@ LSE *e1 = new LSE();
 		cin >> entrada;
 	}
 
-	e1->mostra();
-
 	NoPilha *listaAux = e1->getPrim()->getProx();
 
 	int dist = 0;
@@ -472,7 +547,6 @@ LSE *e1 = new LSE();
 		while (entrada != -1) {
 			dist++;
 			buscarContainer(e1,entrada,dist);
-			//e1->mostra();
 			cin >> entrada;
 		}
 		listaAux->getPilha()->setEstado(TEMP);
@@ -481,9 +555,10 @@ LSE *e1 = new LSE();
 		cin >> entrada;
 	}
 
-	cout << "\n";
+	//e1->mostra();
 
-	e1->mostra();
+	imprime(e1);
 
 	return 0;
 }
+
