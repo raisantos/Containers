@@ -215,63 +215,7 @@ void LSE::busca(Chave chave){
 		p->getPilha()->mostra();
 	}
 }
-//---------------------------------------lista de listas--------------------------------------------------------------
-class Lista{
-private:
-	No *prim, *ult;
-public:
-	No* getPrim(){
-		return prim;
-	}
 
-	No* getUlt(){
-		return ult;
-	}
-	Lista();
-	void insere(Contain *);
-};
-
-class NoLista{
-private:
-	Lista *lista;
-	NoLista *prox;
-public:
-	NoLista(){};
-
-	Lista *getLista(){
-		return lista;
-	}
-
-	void setLista(Lista *lista){
-		this->lista = lista;
-	}
-
-	NoLista* getProx(){
-		return prox;
-	}
-
-	void setProx(NoLista* prox){
-		this->prox = prox;
-	}
-};
-
-class ListaDeEntrada{
-private:
-	NoLista *prim, *ult;
-public:
-
-	NoLista* getPrim(){
-		return prim;
-	}
-	NoLista* getUlt(){
-		return ult;
-	}
-
-	ListaDeEntrada();
-	void insere(Lista*);
-};
-
-//-----------------------------------------------------------------------------------------------------
 /*
  * Funcao ajusta a pilha de origem.
  * O container em questao deve esta no topo para poder ser empilhado na pilha de destino
