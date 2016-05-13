@@ -135,7 +135,6 @@ void Pilha::mostra() {
         nav->getContain()->mostra();
         cout << " ";
     }
-
     cout << "\n";
 }
 
@@ -163,9 +162,7 @@ public:
 class LSE {
 private:
     NoPilha *prim, *ult;
-
 public:
-
     NoPilha* getPrim(){
     	return prim;
     }
@@ -216,13 +213,89 @@ void LSE::busca(Chave chave){
 	}
 }
 
+class Lista{
+private:
+	No *prim, *ult;
+public:
+	No* getPrim(){
+		return prim;
+	}
+
+	No* getUlt(){
+		return ult;
+	}
+	Lista();
+	void insere(Contain*);
+};
+
+Lista::Lista() {
+    prim = new No(); // cabeça
+    prim -> prox = NULL;
+    ult = prim;
+}
+void Lista::insere(Contain* x){
+	ult->prox = new No();
+	ult = ult->prox;
+	ult->prox = NULL;
+	ult->item = x;
+}
+
+class NoLista{
+private:
+	Lista *lista;
+	NoLista *prox;
+public:
+	NoLista(){};
+
+	Lista *getLista(){
+		return lista;
+	}
+
+	void setLista(Lista *lista){
+		this->lista = lista;
+	}
+
+	NoLista* getProx(){
+		return prox;
+	}
+
+	void setProx(NoLista* prox){
+		this->prox = prox;
+	}
+};
+
+class ListaDeEntrada{
+private:
+	NoLista *prim, *ult;
+public:
+	NoLista* getPrim(){
+		return prim;
+	}
+	NoLista* getUlt(){
+		return ult;
+	}
+
+	ListaDeEntrada();
+	void insere(Lista*);
+};
+
+ListaDeEntrada::ListaDeEntrada() {
+    prim = new NoLista(); // cabeça
+    prim->setProx(NULL);
+    ult = prim;
+}
+void ListaDeEntrada::insere(Lista *l){
+	ult->setProx(new NoLista());
+	ult = ult->getProx();
+	ult->setProx(NULL);
+	ult->setLista(l);
+}
 /*
  * Funcao ajusta a pilha de origem.
  * O container em questao deve esta no topo para poder ser empilhado na pilha de destino
  * Essa funcao desempilha o container da pilha ate que o topo seja o container requerido
  */
 void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
-
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
 	while (pTemp->getTopo()->getProx()->getContain()->getValor() != container) {	// Enquanto o TOPO for diferente do valor do container é feito o desempilhamento
@@ -251,7 +324,6 @@ void ajustaOrigem (LSE *lista, Pilha *pTemp, int container) {
  */
 
 void ajustaDestino (LSE *lista, Pilha *pTemp) {
-
 	Contain *ctemp = new Contain ();
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
@@ -268,14 +340,12 @@ void ajustaDestino (LSE *lista, Pilha *pTemp) {
 	listaAux->getPilha()->empilha(ctemp);
 	listaAux->getPilha()->setEstado(ORIGEM);
 }
-
 /**
 	Ajusta a pilha de Destino tomando como referencia
 	o valor da variavel cont
  */
 
 void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
-
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
 
@@ -294,7 +364,6 @@ void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
 		listaAux = listaAux->getProx();
 		cont--;
 	}
-
 }
 
 /**
@@ -303,7 +372,6 @@ void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
  */
 
 int conferePosicao (Pilha *pTemp, int container){
-
 	int cont = 0;
 	No *pilhaTemp = pTemp->getTopo()->getProx();
 	while (pilhaTemp->getContain()->getValor() != container) {
@@ -313,24 +381,20 @@ int conferePosicao (Pilha *pTemp, int container){
 		cont = cont + 1;
 		pilhaTemp = pilhaTemp->getProx();
 	}
-
 	return cont;
 }
 
 int contaDestino (Pilha *pTemp){
-
 	int cont = 0;
 	No *pilhaTemp = pTemp->getTopo()->getProx();
 	while (pilhaTemp != NULL) {
 		cont++;
 		pilhaTemp = pilhaTemp->getProx();
 	}
-
 	return cont;
 }
 
 void empilhaDesempilha (LSE *lista) {
-
 	NoPilha *listaAux = new NoPilha();
 	listaAux = lista->getPrim()->getProx();
 
@@ -360,7 +424,6 @@ void empilhaDesempilha (LSE *lista) {
 	Apos encontrar o container requesita outras funcoes para ajustara operacao
  */
 void buscarContainer (LSE *lista, int container, int dist){
-
 	bool continuar = true;
 
 	NoPilha *listaAux = new NoPilha();
@@ -399,7 +462,6 @@ void buscarContainer (LSE *lista, int container, int dist){
 						empilhaDesempilha(lista);
 					}
 					continuar = false;
-
 				}
 				else {
 					int cont = conferePosicao(listaAux->getPilha(), container);	// Incrementa a variavel cont
@@ -407,7 +469,6 @@ void buscarContainer (LSE *lista, int container, int dist){
 					if (cont == dist) {
 						continuar = false;
 					}
-
 					else if (cont>dist) {
 						ajustaOrigem(lista,listaAux->getPilha(), container);// Ajusta a pilha para que o container requerido esteja no topo
 						ajustaDestino(lista,listaAux->getPilha());			// Pega o container requerido e move para uma pilha
@@ -426,7 +487,6 @@ void buscarContainer (LSE *lista, int container, int dist){
 }
 
 int maiorPilha(LSE *lista){
-
 	int maior = 0, temp;
 
 	NoPilha *listaAux = new NoPilha();
@@ -439,16 +499,12 @@ int maiorPilha(LSE *lista){
 		if (temp>maior) {
 			maior = temp;
 		}
-
 		listaAux = listaAux->getProx();
-
 	}
-
 	return maior;
 }
 
 void imprime (LSE *lista) {
-
 	bool continuar = true;
 
 	int tam = maiorPilha(lista);
@@ -463,11 +519,9 @@ void imprime (LSE *lista) {
 	}
 
 	NoPilha *listaAux = new NoPilha();
-
 	while (continuar) {
 		listaAux = lista->getPrim()->getProx();
 		while (listaAux != NULL) {
-
 			Pilha *pilhaTemp = new Pilha();
 			pilhaTemp = listaAux->getPilha();
 
@@ -484,9 +538,7 @@ void imprime (LSE *lista) {
 				else {
 					cout << "   ";
 				}
-
 			}
-
 			listaAux = listaAux->getProx();
 		}
 		cout << "\n";
@@ -494,20 +546,14 @@ void imprime (LSE *lista) {
 		if (tam == 0) {
 			continuar = false;
 		}
-
 	}
-
 }
 
-
-/**
-	Funcao principal
- */
-
+//Funcao principal
 int main(int argc, const char * argv[]) {
 
 LSE *e1 = new LSE();
-	//LSE *e2 = new LSE();
+ListaDeEntrada *e2 = new ListaDeEntrada();
 
 	int entrada;
 
@@ -524,21 +570,35 @@ LSE *e1 = new LSE();
 		cin >> entrada;
 	}
 
-	NoPilha *listaAux = e1->getPrim()->getProx();
-
-	int dist = 0;
 	cin >> entrada;
 	while (entrada != -1){
-		listaAux->getPilha()->setEstado(DESTINO);
+		Lista *l = new Lista();
 		while (entrada != -1) {
-			dist++;
-			buscarContainer(e1,entrada,dist);
+			Contain *d = new Contain();
+			d->setValor(entrada);
+			l->insere(d);
 			cin >> entrada;
+		}
+		e2->insere(l);
+		cin >> entrada;
+	}
+
+	NoPilha *listaAux = e1->getPrim()->getProx();
+	NoLista *listaBusca = e2->getPrim()->getProx();
+	int dist = 0;
+	while (listaBusca != NULL){
+		No *itemLista = listaBusca->getLista()->getPrim()->getProx();
+		listaAux->getPilha()->setEstado(DESTINO);
+		while (itemLista != NULL) {
+			Chave container = itemLista->getContain()->getValor();
+			dist++;
+			buscarContainer(e1,container,dist);
+			itemLista = itemLista->getProx();
 		}
 		listaAux->getPilha()->setEstado(TEMP);
 		listaAux = listaAux->getProx();
 		dist = 0;
-		cin >> entrada;
+		listaBusca = listaBusca->getProx();
 	}
 
 	imprime(e1);
