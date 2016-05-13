@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : PP1_AED.cpp
-// Author      : Jailson & Rai Soledade & Richardson Souza
+// Author      : Jailson Perera & Rai Soledade & Richardson Souza
 // Version     :
 // Copyright   : Your copyright notice
 // Description : Projeto PP1 de AED in C++, Ansi-style
@@ -59,7 +59,6 @@ public:
     void setProx(No *prox) {
         this->prox = prox;
     }
-
 };
 
 class Pilha {
@@ -97,7 +96,6 @@ public:
     Contain* desempilha(Contain*);
     void empilha(Contain*);
     bool vazia();
-    void mostra();
 };
 
 Pilha::Pilha() {
@@ -118,24 +116,11 @@ void Pilha::empilha(Contain *item) {
 }
 
 Contain* Pilha::desempilha(Contain *item) {
-    if (vazia()) {
-        cout << "pilha vazia: impossível remover item\n";
-    }
-    else {
-        No *aux = topo;
-        topo = topo->getProx();
-        item = topo->getContain();
-        delete aux;
-        return item;
-    }
-}
-
-void Pilha::mostra() {
-    for (No *nav = topo->getProx(); nav != NULL; nav = nav->getProx()) {
-        nav->getContain()->mostra();
-        cout << " ";
-    }
-    cout << "\n";
+	No *aux = topo;
+	topo = topo->getProx();
+	item = topo->getContain();
+	delete aux;
+	return item;
 }
 
 class NoPilha{
@@ -179,8 +164,6 @@ public:
 
     LSE();
     void insere(Pilha*);
-    void busca(Chave);
-    void mostra();
 };
 
 LSE::LSE() {
@@ -194,23 +177,6 @@ void LSE::insere(Pilha* p) {
     ult=ult->getProx();
     ult->setProx(NULL);
     ult->setPilha(p);
-}
-
-void LSE::mostra() {
-    NoPilha *p = getPrim()->getProx();
-    while (p != NULL) {
-    	//cout << "i:" << p->getPilha()->getEstado() << " ";
-        p->pilha->mostra();
-        p = p->getProx();
-    }
-}
-
-void LSE::busca(Chave chave){
-	NoPilha *p = prim->getProx();
-
-	while (p != NULL) {
-		p->getPilha()->mostra();
-	}
 }
 
 class Lista{
@@ -362,6 +328,9 @@ void ajustaPosicao (LSE *lista, Pilha *pTemp, int cont) {
 		}
 		listaAux->getPilha()->empilha(ctemp);
 		listaAux = listaAux->getProx();
+		if (listaAux == NULL) {
+			listaAux = lista->getPrim()->getProx();
+		}
 		cont--;
 	}
 }
